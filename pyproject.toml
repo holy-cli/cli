@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "holy-cli"
+description = "Holy is a CLI tool that makes it effortless to create, manage and connect to servers in your AWS account"
+version = "1.0.0"
+readme = "README.md"
+requires-python = ">=3.9"
+keywords = ["aws", "cloud", "server", "cli", "holy", "development", "instance", "ec2"]
+license = {file = "LICENSE.txt"}
+authors = [
+    { name="Jason M", email="emailfire@gmail.com" },
+]
+classifiers = [
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "License :: OSI Approved :: MIT License",
+]
+dependencies = [
+    "click>=8.1",
+    "boto3>=1.28",
+    "boto3-stubs[ec2,ssm,iam]>=1.28",
+    "yaspin>=2.5",
+    "tabulate>=0.9",
+]
+
+[project.scripts]
+holy = "holy_cli.cli:entry_point"
+
+[project.urls]
+"Homepage" = "https://github.com/holy-cli/cli"
+"Bug Tracker" = "https://github.com/holy-cli/cli/issues"

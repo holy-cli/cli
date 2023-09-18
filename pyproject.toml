@@ -35,3 +35,8 @@ holy = "holy_cli.cli:entry_point"
 [project.urls]
 "Homepage" = "https://github.com/holy-cli/cli"
 "Bug Tracker" = "https://github.com/holy-cli/cli/issues"
+
+[project.optional-dependencies]
+tests = [
+    "pytest",
+]

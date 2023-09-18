@@ -4,6 +4,8 @@ Holy is a CLI tool that makes it effortless to create, manage and connect to ser
 
 It is designed to help you quickly spin up servers for development and test purposes.
 
+[demo video](https://github.com/holy-cli/cli/assets/501743/0ef07eb5-f816-47d1-bce1-ac8c41c689dd)
+
 ## Installation
 
 Please make sure you have Python 3.9 or newer (`python --version`):

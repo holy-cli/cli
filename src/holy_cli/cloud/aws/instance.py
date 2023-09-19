@@ -83,8 +83,9 @@ class InstanceWrapper(BaseWrapper):
 
     def exists(self, server_id: str) -> bool:
         try:
-            self.get_by_id(server_id)
-            return True
+            instance = self.get_by_id(server_id)
+
+            return instance.state["Name"] != "terminated"
         except AbortError:
             return False
 

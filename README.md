@@ -4,30 +4,30 @@ Holy is a CLI tool that makes it effortless to create, manage and connect to ser
 
 If you need to quickly create EC2 instances for development and testing, this tool is for you. It abstracts away all of the configuration for VPC, IAM, security group, key pair etc into one command (`holy server create`).
 
-[Demo video](https://github.com/holy-cli/cli/assets/501743/0ef07eb5-f816-47d1-bce1-ac8c41c689dd)
+[Demo video →](https://github.com/holy-cli/cli/assets/501743/0ef07eb5-f816-47d1-bce1-ac8c41c689dd)
 
 ## Installation
 
 Please make sure you have Python 3.9 or newer (`python --version`):
 
-```
+```bash
 pip install holy-cli
 holy --help
 ```
 
 ## Upgrade
 
-```
+```bash
 pip install --upgrade holy-cli
 ```
 
 ## Configuration
 
+[Watch our complete guide to setup →](https://youtu.be/5fGvWRDhGTM)
+
 To run Holy commands, you will need to have credentials to your AWS account set. Holy will look for credentials the same way as the AWS CLI or SDK does (e.g. inside [~/.aws/credentials file](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html) or as [environment variables](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html)).
 
 Ensure the IAM user for those credentials has the `AdministratorAccess` permission policy attached.
-
-Follow our simple guide for complete setup here.
 
 ## Usage
 
@@ -126,7 +126,7 @@ holy teardown
 
 Clone this repo and pip install:
 
-```
+```bash
 pip install -e .[tests]
 pytest # run unit tests
 ```

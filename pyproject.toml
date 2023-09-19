@@ -11,7 +11,7 @@ requires-python = ">=3.9"
 keywords = ["aws", "cloud", "server", "cli", "holy", "development", "instance", "ec2"]
 license = {file = "LICENSE.txt"}
 authors = [
-    { name="Jason M", email="holy.cli.email@gmail.com" },
+    { name="Holy", email="holy.cli.email@gmail.com" },
 ]
 classifiers = [
     "Intended Audience :: Developers",

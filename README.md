@@ -23,7 +23,7 @@ pip install --upgrade holy-cli
 
 ## Configuration
 
-[Watch our complete guide to setup →](https://youtu.be/5fGvWRDhGTM)
+[Watch our AWS setup guide →](https://youtu.be/5fGvWRDhGTM)
 
 To run Holy commands, you will need to have credentials to your AWS account set. Holy will look for credentials the same way as the AWS CLI or SDK does (e.g. inside [~/.aws/credentials file](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html) or as [environment variables](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html)).
 
@@ -121,6 +121,10 @@ Remove all infrastructure created by holy:
 ```bash
 holy teardown
 ```
+
+## Support
+* Visit the [wiki](https://github.com/holy-cli/cli/wiki)
+* Create [GitHub Issues](https://github.com/holy-cli/cli/issues) for bug reports and feature requests
 
 ## Development
 

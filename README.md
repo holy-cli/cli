@@ -123,8 +123,9 @@ holy teardown
 ```
 
 ## Support
-* Visit the [wiki](https://github.com/holy-cli/cli/wiki)
-* Create [GitHub Issues](https://github.com/holy-cli/cli/issues) for bug reports and feature requests
+* Visit the [wiki](https://github.com/holy-cli/cli/wiki) for more details and FAQ's
+* Create a [new discussion](https://github.com/holy-cli/cli/discussions) for any questions
+* Create an [issue](https://github.com/holy-cli/cli/issues) for bug reports and feature requests
 
 ## Development
 

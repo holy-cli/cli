@@ -4,7 +4,7 @@ from botocore.exceptions import BotoCoreError, ClientError
 from holy_cli import __version__
 from holy_cli.log import getLogger
 
-from .global_commands import teardown
+from .global_commands import teardown, update
 from .server_commands import server
 
 
@@ -32,3 +32,4 @@ def cli() -> None:
 
 cli.add_command(server)
 cli.add_command(teardown)
+cli.add_command(update)

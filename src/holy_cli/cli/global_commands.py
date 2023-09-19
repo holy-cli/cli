@@ -2,6 +2,7 @@ import click
 
 from holy_cli.cloud.aws.actions import AWSActions
 from holy_cli.log import setLoggerToStream
+from holy_cli.util import version_up_to_date
 
 
 @click.command()
@@ -21,3 +22,18 @@ def teardown(**kwargs) -> None:
     actions.teardown()
 
     click.echo("All holy infrastructure removed")
+
+
+@click.command()
+@click.option("-v", "--verbose", help="Show verbose output", count=True)
+def update(**kwargs) -> None:
+    """Check for the latest version"""
+    if kwargs.get("verbose"):
+        setLoggerToStream()
+
+    if version_up_to_date():
+        click.echo("Version is up to date")
+    else:
+        click.echo(
+            "A new version is available, please run: pip install --upgrade holy-cli"
+        )

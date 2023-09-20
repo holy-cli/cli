@@ -14,6 +14,7 @@ Please make sure you have Python 3.9 or newer (`python --version`):
 pip install holy-cli
 holy --help
 ```
+Problems? [Visit the wiki →](https://github.com/holy-cli/cli/wiki)
 
 ## Upgrade
 

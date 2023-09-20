@@ -70,9 +70,6 @@ class AWSActions:
                         "Server already exists, please choose a different name"
                     )
 
-                vpc = None
-                subnet = None
-
                 # Use provided subnet / VPC
                 if options.subnet_id:
                     subnet = self.vpc.get_subnet(options.subnet_id)
@@ -101,12 +98,15 @@ class AWSActions:
 
                 # Use the specified AMI image or find one based on the OS and architecture
                 if options.image_id:
-                    image_id = options.image_id
+                    image = self.image.get_image_by_id(options.image_id)
+
+                    if image is None:
+                        raise AbortError("Image not found")
                 else:
-                    image_id = self.image.find_image_id(
+                    image = self.image.find_image_choices(
                         options.os, options.architecture
                     )
-                    self.log.info(f"Image ID: {image_id}")
+                    self.log.info(f"Image ID: {image.id}")
                     spinner.write("> Found AMI image")
 
                 # Create a new security group
@@ -132,7 +132,8 @@ class AWSActions:
                         server_name=options.name,
                         os=options.os,
                         subnet_id=subnet.id,
-                        image_id=image_id,
+                        image_id=image.id,
+                        root_device_name=image.root_device_name,
                         instance_type=options.type,
                         key_pair_name=key_pair.name,
                         security_group_id=sg.id,

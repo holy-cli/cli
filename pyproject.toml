@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "holy-cli"
 description = "Holy is a CLI tool that makes it effortless to create, manage and connect to servers in your AWS account"
-version = "1.0.1"
+version = "1.0.2"
 readme = "README.md"
 requires-python = ">=3.9"
 keywords = ["aws", "cloud", "server", "cli", "holy", "development", "instance", "ec2"]

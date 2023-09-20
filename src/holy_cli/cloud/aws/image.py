@@ -1,5 +1,7 @@
 from datetime import datetime
+from typing import Optional
 
+from mypy_boto3_ec2.service_resource import Image
 from mypy_boto3_ssm.client import SSMClient
 
 from holy_cli.config import Config
@@ -16,19 +18,25 @@ class ImageWrapper(BaseWrapper):
         session = self.init_boto3_session()
         self.ssm: SSMClient = session.client("ssm")
 
-    def find_image_id(self, os: str, architecture: str) -> str:
+    def find_image_choices(self, os: str, architecture: str) -> Image:
         if os == "amazon-linux":
-            return self._find_amazon_linux_image_id(architecture)
+            return self._find_amazon_linux_image(architecture)
 
         if os.startswith("ubuntu"):
-            return self._find_ubuntu_image_id(os, architecture)
+            return self._find_ubuntu_image(os, architecture)
 
         if os.startswith("rhel"):
-            return self._find_redhat_image_id(os, architecture)
+            return self._find_redhat_image(os, architecture)
 
         raise AbortError("OS not recognised")
 
-    def _find_amazon_linux_image_id(self, architecture: str) -> str:
+    def get_image_by_id(self, image_id: str) -> Optional[Image]:
+        results = list(self.ec2.images.filter(ImageIds=[image_id]))
+
+        if len(results) > 0:
+            return results[0]
+
+    def _find_amazon_linux_image(self, architecture: str) -> Image:
         param_path = "/aws/service/ami-amazon-linux-latest"
         ami_paginator = self.ssm.get_paginator("get_parameters_by_path")
         ami_options = []
@@ -57,14 +65,14 @@ class ImageWrapper(BaseWrapper):
         image = images[0]
         self.log.debug(f"Chose {image.name} - {image.description}")
 
-        return image.id
+        return image
 
-    def _find_ubuntu_image_id(self, os: str, architecture: str) -> str:
+    def _find_ubuntu_image(self, os: str, architecture: str) -> Image:
         if architecture == "x86_64":
             architecture = "amd64"
 
         version = os.split(":")[1]
-        version = f"{version}.04"
+        version = f"{version}.04"  # todo: update when minor version changes
 
         param_name = f"/aws/service/canonical/ubuntu/server/{version}/stable/current/{architecture}/hvm/ebs-gp2/ami-id"
         self.log.debug(f"Looking up SSM param name {param_name}")
@@ -74,9 +82,16 @@ class ImageWrapper(BaseWrapper):
         except:
             raise AbortError("Could not find default Ubuntu image")
 
-        return result["Parameter"]["Value"]
+        image = self.get_image_by_id(result["Parameter"]["Value"])
 
-    def _find_redhat_image_id(self, os: str, architecture: str) -> str:
+        if image is None:
+            raise AbortError("Could not find default Ubuntu image")
+
+        self.log.debug(f"Chose {image.name} - {image.description}")
+
+        return image
+
+    def _find_redhat_image(self, os: str, architecture: str) -> Image:
         version = os.split(":")[1]
 
         images = list(
@@ -94,8 +109,8 @@ class ImageWrapper(BaseWrapper):
         if len(images) == 0:
             raise AbortError("Could not find default Red Hat image")
 
-        image_ids = [
-            image.id
+        images = [
+            image
             for image in sorted(
                 images,
                 key=lambda image: datetime.strptime(
@@ -106,4 +121,10 @@ class ImageWrapper(BaseWrapper):
             if "BETA" not in image.name
         ]
 
-        return image_ids[0]
+        if len(images) == 0:
+            raise AbortError("Could not find default Red Hat image")
+
+        image = images[0]
+        self.log.debug(f"Chose {image.name} - {image.description}")
+
+        return image

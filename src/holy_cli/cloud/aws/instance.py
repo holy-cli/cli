@@ -19,6 +19,7 @@ class InstanceWrapper(BaseWrapper):
         os: Optional[str],
         subnet_id: str,
         image_id: str,
+        root_device_name: str,
         instance_type: str,
         key_pair_name: str,
         security_group_id: str,
@@ -52,7 +53,7 @@ class InstanceWrapper(BaseWrapper):
             ),
             BlockDeviceMappings=[
                 {
-                    "DeviceName": "/dev/xvda",
+                    "DeviceName": root_device_name,
                     "Ebs": {"DeleteOnTermination": True, "VolumeSize": disk_size},
                 }
             ],

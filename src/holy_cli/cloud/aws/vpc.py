@@ -36,7 +36,7 @@ class VPCWrapper(BaseWrapper):
         if len(results) > 0:
             return results[0]
 
-    def get_subnet(self, subnet_id: str) -> Optional[Subnet]:
+    def get_subnet_by_id(self, subnet_id: str) -> Optional[Subnet]:
         results = list(self.ec2.subnets.filter(SubnetIds=[subnet_id]))
 
         if len(results) > 0:

@@ -72,7 +72,7 @@ class AWSActions:
 
                 # Use provided subnet / VPC
                 if options.subnet_id:
-                    subnet = self.vpc.get_subnet(options.subnet_id)
+                    subnet = self.vpc.get_subnet_by_id(options.subnet_id)
 
                     if subnet is None:
                         raise AbortError("Subnet not found")
